@@ -1,0 +1,51 @@
+=========== SALES TAXES TOOL ===========
+
+DESCRIPTION:
+
+Sales taxes tool is an application that generates receipts txt files from shopping baskets txt files.
+For each product contained in the shopping baskets txt file, the application calculates:
+- basic sales tax: is applicable at a rate of 10% on all goods, except books, food, and medical products that are exempt
+- import duty tax: is an additional sales tax applicable on all imported goods at a rate of 5%, with no exemptions
+For each shopping baskets txt file, the application generates a receipt containing:
+- for each product, the total price (original price + additional taxes)
+- the total sales taxes of all products in the shopping basket txt file
+- the total price (original price + additional taxes) of all products in the shopping basket txt file
+NOTE: the rounding rules for sales tax are that for a tax rate of n%, a shelf price of p contains
+      (np/100 rounded up to the nearest 0.05) amount of sales tax.
+
+RELEASE:
+
+1. create project root folder {sales-taxes}
+
+2. build project (maven install) and copy sales-taxes.jar to {sales-taxes} folder
+
+3. copy folder config to {sales-taxes} folder
+
+4. configure config/config.properties file
+	a. configure parameter folder.input which represents the input folder
+	b. configure parameter folder.output which represents the output folder
+	c. configure parameter folder.backup which represents the backup folder
+	d. configure parameter tax.basic.sales which represents the basic sales tax percentage
+	e. configure parameter tax.import.duty which represents the basic sales tax percentage
+
+5. configure config/no-tax-products.xml file
+	a. for each product with no basic sales tax, add a tag entry <product>{product-key-word}</product>
+
+EXECUTION:
+
+1. copy input files to input folder (input folder is configured in config/config.properties file, create it if not exists)
+
+2. execute tool:
+	a. open command line
+	b. move into {sales-taxes} folder
+	c. run command "java -jar sales-taxes.jar"
+
+3. get receipts from output folder (output folder is configured in config/config.properties file)
+
+NOTES:
+
+* input files must be txt files
+
+* each line of input files must match the pattern ([0-9]+)\\s(.*)\\sat\\s([0-9]{1,3}\\.[0-9][0-9])
+
+* the tool execution generates logs under log folder into {sales-taxes} folder
